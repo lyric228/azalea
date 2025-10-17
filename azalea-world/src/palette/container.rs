@@ -115,7 +115,7 @@ impl<S: PalletedContainerKind> PalettedContainer<S> {
     }
 
     pub fn read(buf: &mut Cursor<&[u8]>) -> Result<Self, BufReadError> {
-        let bits_per_entry = u8::azalea_read(buf)?;
+        let mut bits_per_entry = u8::azalea_read(buf)?;
         let palette_type = S::bits_per_entry_to_palette_kind(bits_per_entry);
         let palette = palette_type.read(buf)?;
         let size = S::size();
