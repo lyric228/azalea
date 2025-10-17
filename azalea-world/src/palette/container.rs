@@ -119,7 +119,7 @@ impl<S: PalletedContainerKind> PalettedContainer<S> {
         let palette_type = S::bits_per_entry_to_palette_kind(bits_per_entry);
         let palette = palette_type.read(buf)?;
         let size = S::size();
-
+        if palette_type == PaletteKind::Linear && S::size_bits() == 4 { bits_per_entry = 4 }
         let mut storage = match BitStorage::new(
             bits_per_entry as usize,
             size,
